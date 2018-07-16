@@ -7,14 +7,16 @@ use App\Models\Place;
 use App\Models\Placetype;
 use App\Models\Picture;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\PlaceRequest;
+use App\Http\Requests\PictureRequest;
 
 class PlaceController extends Controller
 {
 
     public function placeList()
     {
-        $places = Place::All()->all();
-        $placetypes = Placetype::All()->all();
+        $places = Place::all();
+        $placetypes = Placetype::all();
         $types = [];
 
         foreach ($placetypes as $pt)
@@ -30,7 +32,7 @@ class PlaceController extends Controller
         return view('addplace', compact('types'));
     }
 
-    public function doAddPlace(Request $request)
+    public function doAddPlace(PlaceRequest $request)
     {
         $newplace = $request->only('name', 'placetype_id');
         Place::create($newplace);
@@ -42,7 +44,7 @@ class PlaceController extends Controller
     {
         $name = urldecode($id);
         $place = Place::place($name)->first();
-        $pictures = Picture::pictures($place->id)->get();
+        $pictures = Picture::pictureList($place->id)->get();
 
         return view('showplace', compact('place', 'pictures'));
     }
@@ -57,7 +59,7 @@ class PlaceController extends Controller
         return view('addphoto', compact('places', 'place', 'referer'));
     }
 
-    public function doAddPhoto(Request $request)
+    public function doAddPhoto(PictureRequest $request)
     {
         $file = $request->file('image');
         //$location = $file->store('collection', 'public');

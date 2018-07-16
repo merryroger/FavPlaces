@@ -16,5 +16,12 @@
 <body>
     @yield('hdr')
     @yield('form')
+    @if($errors->any())
+        <div class="error">
+            @foreach($errors->all() as $error)
+                <span>{{ $error }}</span>
+            @endforeach
+        </div>
+    @endif
 </body>
 </html>
