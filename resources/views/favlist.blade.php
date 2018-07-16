@@ -10,16 +10,16 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Infant|El+Messiri|Fira+Sans+Extra+Condensed"
           rel="stylesheet">
-    @if($places)
+    @if($places->all())
         <link rel="stylesheet" href="/css/default.css" type="text/css">
-    @elseif(!$places)
+    @elseif(!$places->all())
         <link rel="stylesheet" href="/css/emptylist.css" type="text/css">
     @endif
 </head>
 <body>
-    @if($places)
+    @if($places->all())
         @yield('listhdr')
-    @elseif(!$places)
+    @elseif(!$places->all())
         @yield('emptyhdr')
     @endif
 </body>
