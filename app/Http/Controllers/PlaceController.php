@@ -15,14 +15,14 @@ class PlaceController extends Controller
 
     public function placeList()
     {
-        $places = Place::all();
+        $listset = Place::all();
         $placetypes = Placetype::all();
         $types = [];
 
         foreach ($placetypes as $pt)
             $types[$pt->id] = $pt->name;
 
-        return view('placelist', compact('places', 'types'));
+        return view('placelist', compact('listset', 'types'));
     }
 
     public function addPlace()
@@ -44,9 +44,9 @@ class PlaceController extends Controller
     {
         $name = urldecode($id);
         $place = Place::place($name)->first();
-        $pictures = Picture::pictureList($place->id)->get();
+        $listset = Picture::pictureList($place->id)->get();
 
-        return view('showplace', compact('place', 'pictures'));
+        return view('showplace', compact('place', 'listset'));
     }
 
     public function addPhoto(Request $request, $id)
@@ -64,7 +64,7 @@ class PlaceController extends Controller
         $file = $request->file('image');
         //$location = $file->store('collection', 'public');
         $path = $file->storeAs('collection', $file->getClientOriginalName(), 'public');
-        list($width, $height) = getimagesize(storage_path('app/public')."/{$path}");
+        list($width, $height) = getimagesize(storage_path('app/public') . "/{$path}");
 
         $location = Storage::url($path);
 

@@ -24,7 +24,7 @@ class PictureRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required'
+            'image' => 'required|image'
         ];
     }
 
@@ -32,6 +32,7 @@ class PictureRequest extends FormRequest
     {
         return [
             'image.required' => 'Поле для ввода изображения является обязательным.',
+            'image.image' => 'Загружаемый файл должен быть изображением.',
         ];
     }
 }

@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Place extends Model
 {
-    protected $guarded = [];
     protected $fillable = ['id', 'placetype_id', 'name'];
-    public $timestamps = true;
 
     public function scopePlace($query, $placename)
     {

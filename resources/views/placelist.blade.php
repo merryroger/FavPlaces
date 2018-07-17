@@ -3,7 +3,7 @@
 @section('listhdr')
     @include('listheader')
     <div class="listpad">
-        @foreach($places as $place)
+        @foreach($listset as $place)
             <div class="fpholder">
                 <div class="pldata"
                      onclick="document.location.href='/places/{{ urlencode($place->name) }}'; return false;">
